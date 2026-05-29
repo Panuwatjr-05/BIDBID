@@ -15,6 +15,7 @@ import StoreAvatarComp from '@/components/StoreAvatar'
 import Navbar from '@/components/Navbar'
 import AuctionTimer from '@/components/AuctionTimer'
 import BidList from '@/components/BidList'
+import WinnerCard from '@/components/WinnerCard'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import { supabase } from '@/lib/supabase'
 import { formatPrice, buildLineUrl } from '@/lib/helpers'
@@ -223,9 +224,7 @@ export default function ProductDetailPage() {
                 )}
 
                 {auctionEnded || product.status === 'ENDED' ? (
-                  <div className="bg-red-50 text-red-700 rounded-xl p-3 text-center font-medium">
-                    การประมูลสิ้นสุดแล้ว
-                  </div>
+                  <WinnerCard auction={product.auction_product} currentUserId={session?.user.id} />
                 ) : session?.user.role === 'BUYER' ? (
                   <form onSubmit={handleSubmit(onBid)} className="space-y-3">
                     <div>

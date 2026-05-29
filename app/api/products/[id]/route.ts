@@ -10,7 +10,7 @@ export async function GET(_req: NextRequest, { params }: { params: { id: string 
       .select(
         `*, store:stores(id, store_name, line_id, description, logo_url, user_id),
          fixed_product:fixed_products(*),
-         auction_product:auction_products(*)`
+         auction_product:auction_products(*, winner:users!winner_id(id, name, avatar_url))`
       )
       .eq('id', params.id)
       .single()
