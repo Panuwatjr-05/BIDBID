@@ -89,7 +89,7 @@ export default function RegisterPage() {
                   >
                     <input {...register('role')} type="radio" value={r} className="sr-only" />
                     <span className="font-medium text-sm">
-                      {r === 'BUYER' ? '👤 ผู้ซื้อ' : '🏪 ผู้ขาย'}
+                      {r === 'BUYER' ? 'ผู้ซื้อ' : 'ผู้ขาย'}
                     </span>
                   </label>
                 ))}
