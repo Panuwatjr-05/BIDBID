@@ -67,10 +67,20 @@ export default function NewProductPage() {
       if (!data.end_at) { toast.error('กรุณาเลือกวันสิ้นสุดการประมูล'); return }
     }
 
+    // Convert datetime-local (no timezone) → ISO string (UTC)
+    // Browser parses "2026-05-30T03:31" as local time → toISOString() = correct UTC
+    const payload = {
+      ...data,
+      type: productType,
+      store_id: store.id,
+      images,
+      end_at: data.end_at ? new Date(data.end_at).toISOString() : undefined,
+    }
+
     const res = await fetch('/api/products', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...data, type: productType, store_id: store.id, images }),
+      body: JSON.stringify(payload),
     })
 
     const json = await res.json()
